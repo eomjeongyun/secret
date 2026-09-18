@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F7C9DA">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Secret">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Secret</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <h1>Secret</h1>
+      <p id="todayLabel"></p>
+    </header>
+
+    <main>
+      <section id="homeView" class="view active" aria-labelledby="homeTitle">
+        <div class="hero card">
+          <p class="eyebrow" id="homeTitle">오늘의 기록</p>
+          <h2 id="statusText">기록을 불러오는 중</h2>
+          <p id="statusDetail" class="subtle"></p>
+          <div class="ovulation-box">
+            <span>다음 예상 배란일</span>
+            <strong id="ovulationText">-</strong>
+          </div>
+          <button id="primaryLogButton" class="primary" type="button">생리 시작 기록</button>
+        </div>
+
+        <section class="card history-card" aria-labelledby="historyTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">나의 기록</p>
+              <h3 id="historyTitle">최근 생리</h3>
+            </div>
+            <div class="average-copy" id="averageText"></div>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </section>
+      </section>
+
+      <section id="calendarView" class="view" aria-labelledby="calendarTitle">
+        <div class="calendar-card card">
+          <div class="calendar-header">
+            <button id="prevMonth" class="icon-button" type="button" aria-label="이전 달">‹</button>
+            <h2 id="calendarTitle"></h2>
+            <button id="nextMonth" class="icon-button" type="button" aria-label="다음 달">›</button>
+          </div>
+          <div class="weekdays" aria-hidden="true">
+            <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+          </div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+          <div class="legend">
+            <span><i class="legend-mark actual"></i>실제 생리</span>
+            <span><i class="legend-mark predicted"></i>예상 생리</span>
+            <span><i class="legend-mark ovulation"></i>예상 배란일</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="주요 메뉴">
+      <button class="nav-button active" data-view="home" type="button"><span class="nav-symbol">○</span><span>오늘</span></button>
+      <button class="nav-button" data-view="calendar" type="button"><span class="nav-symbol">□</span><span>달력</span></button>
+    </nav>
+  </div>
+
+  <div id="sheetBackdrop" class="sheet-backdrop" hidden></div>
+  <section id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+    <div class="sheet-handle"></div>
+    <div class="sheet-heading">
+      <div>
+        <p class="eyebrow" id="sheetEyebrow"></p>
+        <h2 id="sheetTitle"></h2>
+      </div>
+      <button id="closeSheet" class="close-button" type="button" aria-label="닫기">×</button>
+    </div>
+    <div id="sheetContent"></div>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
