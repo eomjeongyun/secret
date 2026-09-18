@@ -307,28 +307,10 @@ function openLogSheet(mode, initialDate) {
 function openDaySheet(key, actual) {
   if (actual) return openEditSheet(actual);
   const open = openPeriod();
-  const content = document.createElement('div');
-  const note = document.createElement('p');
-  note.className = 'sheet-note';
-  note.textContent = open ? `${formatDate(open.startDate)} 시작한 생리를 이 날 종료할 수 있어요.` : '이 날을 새 생리의 시작일로 기록할 수 있어요.';
-  content.append(note);
-  const actions = document.createElement('div');
-  actions.className = 'sheet-actions';
-  const validEnd = !open || key >= open.startDate;
-  const primary = actionButton(open ? '이 날 생리 종료' : '이 날 생리 시작', 'primary', () => {
-    closeSheet();
-    openLogSheet(open ? 'end' : 'start', key);
-  });
-  primary.disabled = !validEnd;
-  actions.append(primary);
-  if (!validEnd) {
-    const warning = document.createElement('p');
-    warning.className = 'sheet-note';
-    warning.textContent = '진행 중인 생리의 시작일보다 빠른 날짜예요.';
-    content.append(warning);
+  if (open && key < open.startDate) {
+    return showToast('진행 중인 생리의 시작일보다 빠른 날짜예요.');
   }
-  content.append(actions);
-  showSheet('달력 기록', formatDate(key), content);
+  openLogSheet(open ? 'end' : 'start', key);
 }
 
 function openEditSheet(period) {
