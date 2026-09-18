@@ -423,6 +423,13 @@ function bindEvents() {
     state.calendarMonth = new Date(state.calendarMonth.getFullYear(), state.calendarMonth.getMonth() + 1, 1, 12);
     renderCalendar();
   });
+  let swipeStartX = 0;
+  $('#calendarGrid').addEventListener('touchstart', (e) => { swipeStartX = e.changedTouches[0].clientX; }, { passive: true });
+  $('#calendarGrid').addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - swipeStartX;
+    if (Math.abs(dx) < 55) return;
+    if (dx < 0) { $('#nextMonth').click(); } else { $('#prevMonth').click(); }
+  }, { passive: true });
   $('#closeSheet').addEventListener('click', closeSheet);
   $('#sheetBackdrop').addEventListener('click', closeSheet);
 }
