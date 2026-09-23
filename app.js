@@ -307,10 +307,10 @@ function openLogSheet(mode, initialDate) {
 function openDaySheet(key, actual) {
   if (actual) return openEditSheet(actual);
   const open = openPeriod();
-  if (open && key < open.startDate) {
-    return showToast('진행 중인 생리의 시작일보다 빠른 날짜예요.');
-  }
-  openLogSheet(open ? 'end' : 'start', key);
+  // A day before the currently-open period's start is a separate, unrelated past
+  // cycle (e.g. logging May while September is still open) -- always a new start,
+  // never blocked. Only a day on/after the open start closes that open period.
+  openLogSheet(open && key >= open.startDate ? 'end' : 'start', key);
 }
 
 function openEditSheet(period) {

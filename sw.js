@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'secret-shell-v3';
+const CACHE_NAME = 'secret-shell-v4';
 const APP_SHELL = [
   './',
   './index.html',
